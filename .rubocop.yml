@@ -1,0 +1,39 @@
+ 
+AllCops:
+  TargetRubyVersion: 2.5
+  Include:
+    - "lib/**/*.rb"
+    - "spec/**/*.rb"
+  Exclude:
+    - "bin/**/*"
+    - "examples/*"
+    - "spec/support/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "*.gemspec"
+  DisplayCopNames: true
+  StyleGuideCopsOnly: false
+
+Style/MethodMissingSuper:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - "spec/**/*.rb"
+
+Style/BlockDelimiters:
+  Exclude:
+    - "spec/**/*.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "spec/**/*.rb"
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "spec/**/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"

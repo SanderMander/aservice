@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# sidekiq worker which run services in background
 class AserviceWorker
   include Aservice::Worker
 

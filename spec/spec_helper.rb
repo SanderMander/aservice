@@ -2,9 +2,9 @@
 
 require 'aservice'
 require 'pry-byebug'
-
+require 'sidekiq/testing' 
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].sort.each { |f| require f }
-
+Sidekiq::Testing.inline!
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Aservice
+  # Mixin which define perform_after method
   module Worker
     def self.included(base)
       base.include Sidekiq::Worker

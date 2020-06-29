@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Aservice
+  # Sidekiq job callbacks
   class Callback
     class << self
       def add(jid, class_name, method, args)
@@ -16,7 +17,7 @@ module Aservice
 
       def success(job)
         while (opt = pop_next(job['jid']))
-          res = Kernel.const_get(opt['class']).send(opt['method'], *opt['args'])
+          Kernel.const_get(opt['class']).send(opt['method'], *opt['args'])
         end
       end
 

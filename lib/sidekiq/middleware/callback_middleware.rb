@@ -2,6 +2,7 @@
 
 module Sidekiq
   module Middleware
+    # Middleware which executes callbacks
     class CallbackMiddleware
       def call(_worker_class, job, _queue)
         yield
