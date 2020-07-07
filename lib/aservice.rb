@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq'
+require 'sidekiq-status'
 require 'anyway_config'
 require_relative 'aservice/config.rb'
 require_relative 'aservice/worker/worker.rb'
@@ -49,10 +50,12 @@ module Aservice
     def perform(type, method, args)
       worker = AserviceWorker.set(queue: Aservice::Config.queue)
       raise_no_method_error("No method: #{method} for class: #{name}") unless respond_to?(method.to_sym)
-      if type == :async
+      return worker.perform_async(name, method, *args) if type == :async
+
+      jid = args.shift
+      if Sidekiq::Status.complete?(jid)
         worker.perform_async(name, method, *args)
       else
-        jid = args.shift
         worker.perform_after(jid, name, method, *args)
       end
     end

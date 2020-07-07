@@ -7,7 +7,10 @@ module Aservice
 
     attr_config logger: Logger.new($stdout),
                 severity: Logger::Severity::DEBUG,
-                queue: 'default'
+                queue: 'default',
+                status_expiration: 60 * 30,
+                redis_prefix: 'AC',
+                callbacks_expiration: 60 * 30
     def self.instance
       @config ||= new
       yield @config if block_given?

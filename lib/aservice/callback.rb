@@ -11,13 +11,16 @@ module Aservice
           'args' => args
         }
         Sidekiq.redis do |conn|
-          conn.rpush("as#{jid}", opt.to_json)
+          conn.multi do
+            conn.rpush(key(jid), opt.to_json)
+            conn.expire(key(jid), Aservice::Config.callbacks_expiration)
+          end
         end
       end
 
       def success(job)
         while (opt = pop_next(job['jid']))
-          Kernel.const_get(opt['class']).send(opt['method'], *opt['args'])
+          execute_service(opt['class'], opt['method'], opt['args'])
         end
       end
 
@@ -27,9 +30,13 @@ module Aservice
 
       private
 
+      def execute_service(class_name, method, args)
+        Kernel.const_get(class_name).send(method, *args)
+      end
+
       def pop_next(jid)
         opt = Sidekiq.redis do |conn|
-          conn.lpop("as#{jid}")
+          conn.lpop(key(jid))
         end
         return false if opt.nil?
 
@@ -38,8 +45,12 @@ module Aservice
 
       def clear_stack(jid)
         Sidekiq.redis do |conn|
-          conn.del("ac#{jid}")
+          conn.del(key(jid))
         end
+      end
+
+      def key(jid)
+        "#{Aservice::Config.redis_prefix}_#{jid}"
       end
     end
   end

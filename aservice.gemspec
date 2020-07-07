@@ -2,8 +2,8 @@
 
 Gem::Specification.new do |s|
   s.name        = 'aservice'
-  s.version     = '0.0.0'
-  s.date        = '2020-06-17'
+  s.version     = '0.0.1'
+  s.date        = '2020-07-07'
   s.summary     = 'Aservice'
   s.description = 'Gem for running services asynchroniously'
   s.authors     = ['Aleksandr Korotkikh']
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
 
   s.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+    f.match(%r{^(spec|examples)/})
   end
   s.require_paths = ['lib']
   s.add_development_dependency 'bundler', '~> 2'
@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop'
   s.add_dependency 'anyway_config', '>= 2.0.0'
   s.add_dependency('sidekiq', ['>= 4.2.1'])
+  s.add_dependency('sidekiq-status', ['>= 1.1.4'])
 end

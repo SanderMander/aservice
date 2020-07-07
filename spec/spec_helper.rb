@@ -2,7 +2,7 @@
 
 require 'aservice'
 require 'pry-byebug'
-require 'sidekiq/testing' 
+require 'sidekiq/testing'
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].sort.each { |f| require f }
 Sidekiq::Testing.inline!
 RSpec.configure do |config|
