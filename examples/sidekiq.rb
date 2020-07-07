@@ -2,6 +2,7 @@
 
 require 'aservice'
 Redis.exists_returns_integer = false
+
 class Main
   include Aservice
 
