@@ -2,16 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name        = 'aservice'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2020-07-07'
   s.summary     = 'Aservice'
   s.description = 'Gem for running services asynchroniously'
   s.authors     = ['Aleksandr Korotkikh']
   s.email       = 'koralvas@gmail.com'
   s.homepage    =
-    'https://rubygems.org/gems/aservice'
+    'https://github.com/SanderMander/aservice'
   s.license       = 'MIT'
-
   s.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(spec|examples)/})
   end
